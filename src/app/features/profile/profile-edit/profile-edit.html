@@ -1,0 +1,111 @@
+<div class="sticky top-0 z-50 flex flex-row justify-between items-center px-10 py-8 bg-[#FCFDFF] border-b border-[#EAF0F7]">
+    <!-- Título de la página -->
+    <p class="text-[#283347] text-2xl font-semibold" style="font-family: 'DM Sans', sans-serif; font-weight: 600; font-size: 24px;">
+        My Profile
+    </p>
+
+    <div class="flex flex-row gap-4">
+        <button class="cursor-pointer">
+        <i class="ph ph-bell text-lg text-[#283347]"></i>
+      </button>
+        <a href="home">
+            <img src="https://www.whiskas.cl/sites/g/files/fnmzdf4541/files/2023-11/elever-un-Chaton-ses-premiers-mois.jpg" alt="User profile" class="w-[50px] h-[50px] rounded-full object-cover" />
+        </a>
+    </div>
+</div>
+<div class="max-w-full mx-auto mt-8 mr-20 bg-white rounded-xl p-8">
+    <!-- Cover image -->
+    <div class="relative w-full h-[200px] rounded-xl overflow-hidden">
+        <ng-container *ngIf="!coverImage || coverImage === 'assets/images/cover_default.jpg'; else coverImg">
+            <div class="w-full h-full bg-gray-200 flex items-center justify-center text-[#144257]">
+                <i class="ph ph-image-square text-5xl"></i>
+            </div>
+        </ng-container>
+        <ng-template #coverImg>
+            <img [src]="coverImage" class="w-full h-full object-cover" />
+        </ng-template>
+
+        <div class="absolute inset-0 flex items-center justify-center gap-4 bg-black bg-opacity-40 opacity-0 hover:opacity-100 transition">
+            <button type="button" (click)="coverFileInput.click()">
+    <img [src]="uploadIcon" class="w-10 h-10" />
+  </button>
+            <button type="button" (click)="removeCover()">
+    <img [src]="removeIcon" class="w-10 h-10" />
+  </button>
+        </div>
+    </div>
+
+
+    <!-- Profile picture -->
+    <div class="relative w-[120px] h-[120px] rounded-full overflow-hidden border-[4px] border-white -mt-14 mx-end ml-10 z-10">
+        <ng-container *ngIf="!profileImage || profileImage === 'assets/images/profile_default.jpg'; else profileImg">
+            <div class="w-full h-full bg-gray-200 flex items-center justify-center text-[#144257]">
+                <i class="ph ph-user-circle text-5xl"></i>
+            </div>
+        </ng-container>
+        <ng-template #profileImg>
+            <img [src]="profileImage" class="w-full h-full object-cover" />
+        </ng-template>
+
+        <div class="absolute inset-0 flex items-center justify-center gap-2 bg-black bg-opacity-40 opacity-0 hover:opacity-100 transition">
+            <button type="button" (click)="profileFileInput.click()">
+    <img [src]="uploadIcon" class="w-6 h-6" />
+  </button>
+            <button type="button" (click)="removeProfile()">
+    <img [src]="removeIcon" class="w-6 h-6" />
+  </button>
+        </div>
+    </div>
+
+    <!-- Name and username -->
+    <div class="text-left ml-45 -mt-14">
+        <h2 class="text-2xl font-semibold text-[#283347]">
+            {{ profile.name }}
+        </h2>
+        <p class="text-sm text-gray-500">{{ '@' + (profile.username) }}</p>
+    </div>
+
+    <!-- Formulario -->
+    <div class="max-w-[600px] mx-end bg-white rounded-xl p-8">
+        <form class="mt-2">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <!-- Name -->
+                <div class="relative w-full">
+                    <label class="absolute -top-2 left-4 bg-white px-2 text-sm font-medium" style="color: #144257;">Name</label>
+                    <input type="text" [(ngModel)]="profile.name" name="name" class="p-4 pt-6 w-full border border-gray-300 rounded-full shadow-sm focus:ring-2 focus:ring-[#144257] focus:outline-none text-[#283347]" />
+                </div>
+
+
+            </div>
+
+            <!-- Username -->
+            <div class="relative w-full mt-4">
+                <label class="absolute -top-2 left-4 bg-white px-2 text-sm font-medium" style="color: #144257;">Username</label>
+                <input type="text" [(ngModel)]="profile.username" name="username" class="p-4 pt-6 w-full border border-gray-300 rounded-full shadow-sm focus:ring-2 focus:ring-[#144257] focus:outline-none text-[#283347]" />
+            </div>
+
+            <!-- Bio -->
+            <div class="relative w-full mt-4">
+                <label class="absolute -top-2 left-4 bg-white px-2 text-sm font-medium" style="color: #144257;">Bio</label>
+                <textarea [(ngModel)]="profile.bio" name="bio" rows="3" class="p-4 pt-6 w-full border border-gray-300 rounded-2xl shadow-sm focus:ring-2 focus:ring-[#144257] focus:outline-none text-[#283347]"></textarea>
+            </div>
+        </form>
+    </div>
+
+    <!-- Botones -->
+    <div class="max-w-full mx-auto mt-0 bg-white rounded-xl">
+        <!-- Antes: mt-2 -->
+        <form class="mt-4">
+            <!-- Antes: mt-8 -->
+            <div class="flex justify-center gap-4 mt-2">
+                <button type="button" class="px-6 py-2 rounded-full border text-gray-700 hover:bg-gray-100" (click)="closeModal()">Cancel</button>
+                <button type="button" (click)="saveProfile()" class="px-6 py-2 rounded-full bg-[#144257] text-white hover:bg-[#0F3540]">Save changes</button>
+            </div>
+        </form>
+    </div>
+
+    <!-- Inputs file ocultos -->
+    <input type="file" #profileFileInput accept="image/*" style="display: none" (change)="onProfileFileSelected($event)" />
+    <input type="file" #coverFileInput accept="image/*" style="display: none" (change)="onCoverFileSelected($event)" />
+</div>
+

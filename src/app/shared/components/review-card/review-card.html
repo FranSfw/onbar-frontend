@@ -1,0 +1,60 @@
+<!-- Review Card
+     Displays a form to create a new review
+-->
+
+<div
+  class="px-6 py-4 max-w-[800px] rounded-3xl bg-[#FCFDFF] border border-[#D0DBEA] shadow-md"
+>
+  <div class="flex flex-row gap-4">
+    <img
+      class="w-10 h-10 rounded-full object-fill"
+      [src]="currentUser?.profilePhotoURL || '/assets/images/chef_bigotes.png'"
+      alt="Profile picture"
+    />
+    <div class="w-full flex flex-col gap-2">
+      <div class="flex flex-row gap-4">
+        <!-- Logged in user's information -->
+        <div class="flex flex-col gap-1">
+          <p class="text-[#283347] text-lg font-semibold">
+            {{ currentUser?.name || "Anonymous User" }}
+          </p>
+          <p class="text-[#71799D]">
+            &#64;{{ currentUser?.username || "anonymous" }}
+          </p>
+        </div>
+      </div>
+
+      <!-- Review's rating -->
+      <div class="flex gap-1 pl-2 w-full">
+        <button
+          *ngFor="let star of [1, 2, 3, 4, 5]; let i = index"
+          (click)="toggleRating(star)"
+          (mouseenter)="hoverRating = star"
+          (mouseleave)="hoverRating = 0"
+          class="text-2xl transition-colors duration-200"
+          [class.text-[#F4C430]]="star <= (hoverRating || selectedRating)"
+          [class.text-gray-300]="star > (hoverRating || selectedRating)"
+        >
+          <i class="ph-fill ph-star"></i>
+        </button>
+      </div>
+
+      <div class="flex flex-col gap-4">
+        <!-- Review's comment -->
+        <textarea
+          class="border border-[#D0DBEA] text-[#283347] w-full h-[146px] rounded-2xl px-6 py-4 resize-none focus:outline-none"
+          placeholder="Comment"
+          [(ngModel)]="comment"
+        ></textarea>
+
+        <!-- Submit button -->
+        <button
+          (click)="createReview()"
+          class="bg-[#144257] text-white px-6 py-2 rounded-full hover:bg-[#0d2f3f] transition-colors duration-200"
+        >
+          Submit Review
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

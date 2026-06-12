@@ -1,0 +1,76 @@
+<div class="grid grid-cols-2">
+  <div class="flex flex-col items-center justify-center">
+    <div class="w-1/2">
+      <i class="ph ph-chef-hat text-7xl text-[#283347]"></i>
+      <h1 class="text-6xl text-left text-[#283347] py-4">Sign Up</h1>
+      <p class="text-left text-[#71799D]">
+        The adventure begins with one recipe!
+      </p>
+    </div>
+
+    <div class="w-1/2 py-10">
+      <div class="flex gap-4">
+        <app-input
+          name="First Name"
+          type="text"
+          id="firstNameSignUp"
+          value=""
+          [(ngModel)]="firstName"
+        ></app-input>
+
+        <app-input
+          name="Last Name"
+          type="text"
+          id="lastNameSignUp"
+          value=""
+          [(ngModel)]="lastName"
+        ></app-input>
+      </div>
+      <br />
+
+      <app-input
+        name="Username"
+        type="text"
+        id="usernameSignUp"
+        value=""
+        [(ngModel)]="username"
+      ></app-input>
+      <br />
+
+      <app-input
+        name="Email"
+        type="email"
+        id="emailSignUp"
+        value=""
+        [(ngModel)]="email"
+      ></app-input>
+      <br />
+
+      <app-input
+        name="Password"
+        type="password"
+        id="passwordSignUp"
+        value=""
+        [(ngModel)]="password"
+      ></app-input>
+      <br />
+
+      <app-button text="Create Account" (buttonClick)="onSignUp()"></app-button>
+
+      <span class="flex justify-center text-[#71799D] py-6">
+        Or continue with
+      </span>
+
+      <app-button text="Google" (buttonClick)="onGoogleLogin()"></app-button>
+    </div>
+
+    <p class="text-[#283347] flex justify-center">
+      Already have an account?
+      <a class="text-[#71799D]" routerLink="/login">Sign In</a>
+    </p>
+  </div>
+
+  <div class="flex items-center justify-center h-screen">
+    <img class="w-9/12 rounded-4xl" src="assets/images/sign_up.png" alt="" />
+  </div>
+</div>

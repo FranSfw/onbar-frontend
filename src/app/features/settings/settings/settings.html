@@ -1,0 +1,228 @@
+<div class="flex flex-col flex-1">
+
+  <main class="flex flex-col gap-6 px-8 py-12 items-center justify-center">
+    <!-- Change Account Privacy Form -->
+    <div
+      class="flex flex-col gap-4 relative bg-[#FCFDFF] rounded-[32px] border border-[#EAF0F7] shadow-sm px-6 py-4 w-full max-w-[680px] h-fit"
+    >
+      <h3 class="text-[28px] font-semibold text-[#283347]">
+        Change Profile Privacy
+      </h3>
+      <p class="text-[#283347] text-[16px] font-normal">
+        Choose who can see your profile and posts. You can change this at any
+        time.
+      </p>
+      <form
+        [formGroup]="privacyForm"
+        (ngSubmit)="onPrivacySubmit()"
+        class="flex flex-col gap-4 w-full h-fit"
+      >
+        <div>
+          <select
+            formControlName="privacy"
+            class="w-full h-12 rounded-full border border-[#D0DBEA] px-4 text-base focus:border-[#71799D] outline-none focus:ring-2 focus:ring-[#1E5E6E] focus:ring-opacity-50 transition-colors duration-200 appearance-none bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiM3MTc5OUQiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBjbGFzcz0ibHVjaWRlIGx1Y2lkZS1jaGV2cm9uLWRvd24iPjxwYXRoIGQ9Im02IDkgNiA2IDYtNiIvPjwvc3ZnPg==')] bg-no-repeat bg-[right_1rem_center] bg-[length:1.25rem_1.25rem]"
+            [class.border-red-400]="
+              privacySubmitted && privacyForm.get('privacySetting')?.invalid
+            "
+          >
+            <option disabled selected value="">Select an option</option>
+            <option value="public">Public</option>
+            <option value="private">Private</option>
+          </select>
+          <div
+            *ngIf="
+              privacySubmitted && privacyForm.get('privacySetting')?.invalid
+            "
+            class="text-red-500 text-sm mt-1"
+          >
+            Privacy setting is required
+          </div>
+        </div>
+        <button
+          type="submit"
+          class="px-4 py-2 rounded-full border border-[#D0DBEA] text-[#283347] hover:bg-[#E2F0F4] text-base items-center transition-colors duration-200"
+        >
+          Update
+        </button>
+      </form>
+    </div>
+
+    <!-- Change Email Form -->
+    <div
+      class="flex flex-col gap-4 relative bg-[#FCFDFF] rounded-[32px] border border-[#EAF0F7] shadow-sm px-6 py-4 w-full max-w-[680px] h-fit"
+    >
+      <h3 class="text-[28px] font-semibold text-[#283347]">Change Email</h3>
+      <p class="text-[#283347] text-[16px] font-normal">
+        Enter your new email address below. A verification email will be sent to
+        the new address.
+      </p>
+      <form
+        [formGroup]="emailForm"
+        (ngSubmit)="onEmailSubmit()"
+        autocomplete="off"
+        class="flex flex-col gap-4 w-full h-fit"
+      >
+        <input
+          type="email"
+          formControlName="email"
+          placeholder="New Email Address"
+          class="w-full h-12 rounded-full border border-[#D0DBEA] px-4 text-base focus:border-[#71799D] outline-none focus:ring-2 focus:ring-[#1E5E6E] focus:ring-opacity-50 transition-colors duration-200 placeholder-[#94A3B8]"
+          [class.border-red-400]="
+            emailSubmitted && emailForm.get('email')?.invalid
+          "
+        />
+        <div
+          *ngIf="emailSubmitted && emailForm.get('email')?.invalid"
+          class="text-red-500 text-sm"
+        >
+          <p *ngIf="emailForm.get('email')?.errors?.['required']">
+            Email is required
+          </p>
+          <p *ngIf="emailForm.get('email')?.errors?.['email']">
+            Please enter a valid email
+          </p>
+        </div>
+        <button
+          type="submit"
+          class="px-4 py-2 rounded-full border border-[#D0DBEA] text-[#283347] hover:bg-[#E2F0F4] text-base items-center transition-colors duration-200"
+        >
+          Update
+        </button>
+      </form>
+    </div>
+
+    <!-- Change Password Form -->
+    <div
+      class="flex flex-col gap-4 relative bg-[#FCFDFF] rounded-[32px] border border-[#EAF0F7] shadow-sm px-6 py-4 w-full max-w-[680px] h-fit"
+    >
+      <h3 class="text-[28px] font-semibold text-[#283347]">Change Password</h3>
+      <p class="text-[#283347] text-[16px] font-normal">
+        Enter your current and new password below.
+      </p>
+      <form
+        [formGroup]="passwordForm"
+        (ngSubmit)="onPasswordSubmit()"
+        autocomplete="off"
+        class="flex flex-col gap-4 w-full h-fit"
+      >
+        <!-- Current Password -->
+        <div>
+          <input
+            type="password"
+            formControlName="currentPassword"
+            placeholder="Current Password"
+            class="w-full h-12 rounded-full border border-[#D0DBEA] px-4 text-base focus:border-[#71799D] outline-none transition-colors duration-200 placeholder-[#94A3B8]"
+            [class.border-red-400]="
+              passwordSubmitted && passwordForm.get('currentPassword')?.invalid
+            "
+          />
+          <div
+            *ngIf="
+              passwordSubmitted && passwordForm.get('currentPassword')?.invalid
+            "
+            class="text-red-500 text-sm mt-1"
+          >
+            Current password is required
+          </div>
+        </div>
+
+        <!-- New Password -->
+        <div>
+          <input
+            type="password"
+            formControlName="newPassword"
+            placeholder="New Password"
+            class="w-full h-12 rounded-full border border-[#D0DBEA] px-4 text-base focus:border-[#71799D] outline-none transition-colors duration-200 placeholder-[#94A3B8]"
+            [class.border-red-400]="
+              passwordSubmitted && passwordForm.get('newPassword')?.invalid
+            "
+          />
+          <div
+            *ngIf="
+              passwordSubmitted && passwordForm.get('newPassword')?.invalid
+            "
+            class="text-red-500 text-sm mt-1"
+          >
+            <p *ngIf="passwordForm.get('newPassword')?.errors?.['required']">
+              Password is required
+            </p>
+            <p *ngIf="passwordForm.get('newPassword')?.errors?.['minlength']">
+              Password must be at least 8 characters
+            </p>
+          </div>
+        </div>
+
+        <!-- Confirm Password -->
+        <div>
+          <input
+            type="password"
+            formControlName="confirmPassword"
+            placeholder="Confirm Password"
+            class="w-full h-12 rounded-full border border-[#D0DBEA] px-4 text-base focus:border-[#71799D] outline-none transition-colors duration-200 placeholder-[#94A3B8]"
+            [class.border-red-400]="
+              (passwordSubmitted &&
+                passwordForm.get('confirmPassword')?.invalid) ||
+              (passwordSubmitted && passwordForm.hasError('passwordMismatch'))
+            "
+          />
+          <div
+            *ngIf="
+              passwordSubmitted && passwordForm.hasError('passwordMismatch')
+            "
+            class="text-red-500 text-sm mt-1"
+          >
+            Passwords do not match
+          </div>
+        </div>
+
+        <button
+          type="submit"
+          class="px-4 py-2 rounded-full border border-[#D0DBEA] text-[#283347] hover:bg-[#E2F0F4] text-base items-center transition-colors duration-200"
+        >
+          Update
+        </button>
+      </form>
+    </div>
+
+    <!-- Delete Account Form -->
+    <div
+      class="flex flex-col gap-4 relative bg-[#FCFDFF] rounded-[32px] border border-[#EAF0F7] shadow-sm px-6 py-4 w-full max-w-[680px] h-fit"
+    >
+      <h3 class="text-[28px] font-semibold text-[#283347]">Delete Account</h3>
+      <p class="text-[#283347] text-[16px] font-normal">
+        Enter your password below to delete your account. This action cannot be
+        undone.
+      </p>
+      <form
+        [formGroup]="deleteForm"
+        (ngSubmit)="onDeleteSubmit()"
+        class="flex flex-col gap-4 w-full h-fit"
+      >
+        <div>
+          <input
+            type="password"
+            formControlName="password"
+            placeholder="Password"
+            class="w-full h-12 rounded-full border border-[#D0DBEA] px-4 text-base focus:border-[#71799D] outline-none transition-colors duration-200 placeholder-[#94A3B8]"
+            [class.border-red-400]="
+              deleteSubmitted && deleteForm.get('password')?.invalid
+            "
+          />
+          <div
+            *ngIf="deleteSubmitted && deleteForm.get('password')?.invalid"
+            class="text-red-500 text-sm mt-1"
+          >
+            Password is required
+          </div>
+        </div>
+
+        <button
+          class="flex rounded-full bg-[#EF4444] text-white hover:bg-[#DC2626] px-4 py-2 text-base items-center justify-center transition-colors duration-200 hover:shadow-[0_2px_8px_rgba(239,68,68,0.3)]"
+        >
+          <i class="ph ph-trash mr-2 text-xl"></i>
+          Delete Account
+        </button>
+      </form>
+    </div>
+  </main>
+</div>

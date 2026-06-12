@@ -1,0 +1,65 @@
+<div>
+  <div
+    class="relative {{ width }}"
+    [ngClass]="{
+      'rounded-full': type === 'search',
+      }
+    "
+  >
+    <!-- Ícono de búsqueda (solo para type === 'search') -->
+    <i
+      *ngIf="type === 'search'"
+      class="ph ph-magnifying-glass absolute left-4 top-[18px] select-none"
+      style="color: #71799d"
+    ></i>
+
+    <!-- Input -->
+    <input
+      [id]="id"
+      [type]="type === 'password' ? getInputType() : type"
+      [name]="name"
+      [placeholder]="
+        type === 'search'
+          ? 'Search...'
+          : type === 'addStep'
+          ? 'Step'
+          : type === 'addIngredient'
+          ? 'Ingredient'
+          : id === 'servingInt'
+          ? '0'
+          : ' '
+      "
+      class="peer w-full rounded-4xl border border-[#D0DBEA] px-4 text-base focus:border-[#71799D] outline-none align-top"
+      [ngClass]="{
+        'pl-10 pt-3 pb-3': type === 'search',
+        'pt-[1.25rem] pb-1.5': type !== 'search' && !type.startsWith('add') && type !== 'noLabel',
+        'py-3': type === 'addIngredient' || type === 'addStep' || type === 'noLabel',
+
+      }"
+      (input)="onInputChange($event)"
+      [value]="value"
+    />
+
+    <!-- Label (solo para type !== 'search') -->
+    <label
+      *ngIf="type !== 'search'"
+      for="{{ id }}"
+      class="absolute select-none -z-10 left-4 text-gray-400 text-base transition-all peer-placeholder-shown:top-3 peer-placeholder-shown:text-base peer-placeholder-shown:text-[#71799D] peer-focus:top-[.469rem] peer-focus:text-[.7rem] peer-focus:text-[#71799D] peer-not-placeholder-shown:top-[.469rem] peer-not-placeholder-shown:text-[.7rem] peer-not-placeholder-shown:text-[#71799D]"
+    >
+      {{ name }}
+    </label>
+
+    <!-- Botón de mostrar/ocultar contraseña (solo para type === 'password') -->
+    <button
+      *ngIf="type === 'password'"
+      (click)="togglePasswordVisibility()"
+      class="cursor-pointer"
+    >
+      <i
+        [ngClass]="getIconClass()"
+        class="ph absolute right-4 top-4 select-none"
+        style="color: #71799d"
+      ></i>
+    </button>
+  </div>
+</div>

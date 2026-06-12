@@ -1,0 +1,91 @@
+<div class="flex flex-col w-full items-center justify-around">
+  <div
+    [ngClass]="{
+      'w-[280px]': isExpanded,
+      'w-[340px]': !isExpanded
+    }"
+    class="relative group h-[384px] hover:drop-shadow-lg transition-all duration-300 justify-center items-center"
+  >
+    <a
+      routerLink="/recipes/{{ recipe.id }}"
+      [href]="
+        user?.username === recipe.user.username
+          ? '/own_recipe/' + recipe.id
+          : '/public_recipe/' + recipe.id
+      "
+      class="relative bg-[#FCFDFF] rounded-[32px] border border-[#EAF0F7] shadow-sm px-6 py-4 w-full h-[384px] flex flex-col gap-4 cursor-default transition-all duration-300"
+    >
+      <!-- Card content -->
+      <div class="flex flex-col gap-2">
+        <img
+          [src]="recipe.photoURL || defaultImage"
+          (error)="handleImageError($event)"
+          class="w-full h-[215px] object-cover rounded-3xl"
+          [alt]="recipe.name"
+        />
+
+        <!-- Name and rating -->
+        <div class="flex flex-row gap-2">
+          <div class="flex w-full h-14 items-center">
+            <p id="name" class="text-[#283347] text-xl w-full">
+              {{ recipe.name }}
+            </p>
+          </div>
+          <div class="flex flex-row gap-2 text-sm items-center">
+            <i class="ph-fill ph-star text-[#F4C430]"></i>
+            <p id="rating" class="text-[#71799D] w-full">
+              {{ recipe.rating ? (recipe.rating | number : "1.1-1") : "-" }}
+            </p>
+          </div>
+        </div>
+
+        <!-- Author -->
+        <!-- Author -->
+        <p id="user" class="text-[#71799D] text-base w-full">
+          By
+          <span
+            class="hover:underline cursor-pointer"
+            (click)="
+              goToUserProfile(recipe.user.id);
+              $event.preventDefault();
+              $event.stopPropagation()
+            "
+          >
+            &#64;{{ recipe.user.username }}
+          </span>
+        </p>
+      </div>
+
+      <!-- Preparation time -->
+      <div class="flex flex-row gap-2">
+        <div
+          class="flex flex-row gap-2 bg-[#F6F8FC] rounded-full px-2 py-1 h-fit text-[#283357] text-sm items-center"
+        >
+          <i class="ph ph-clock"></i>
+          <p id="preparationTime">{{ recipe.preparationTime }} min</p>
+        </div>
+
+        <!-- Difficulty -->
+        <div
+          *ngIf="difficultyIcons[recipe.difficulty]"
+          class="flex items-center gap-2 bg-[#F6F8FC] rounded-full px-2 py-1 text-[#283357] text-sm"
+        >
+          <i [class]="difficultyIcons[recipe.difficulty].icon"></i>
+          <p>{{ difficultyIcons[recipe.difficulty].label }}</p>
+        </div>
+      </div>
+    </a>
+
+    <!-- Save button -->
+    <button
+      class="absolute top-6 right-8 z-50 w-10 h-10 bg-[#FCFDFF] rounded-full flex items-center justify-center opacity-0 group-hover:opacity-60 transition-all duration-200 hover:!opacity-60 hover:scale-105 shadow-md cursor-pointer"
+      (click)="toggleFavorite()"
+    >
+      <i
+        class="ph ph-bookmark-simple text-lg"
+        [attr.weight]="isFavorited ? 'fill' : null"
+        [ngClass]="isFavorited ? 'text-yellow-400' : 'text-[#283347]'"
+      ></i>
+    </button>
+  </div>
+</div>
