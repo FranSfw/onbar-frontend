@@ -1,0 +1,61 @@
+<div class="relative">
+  <div class="flex w-full items-center">
+    <!-- Removed drag handle icon here -->
+
+    <!-- INGREDIENT MODE -->
+    <div
+      *ngIf="stepCategory === 'addIngredient'"
+      class="grid grid-cols-2 mx-1 rounded-4xl w-72"
+    >
+      <div
+        class="border-[#D0DBEA] border border-r-0 rounded-l-4xl flex items-center"
+      >
+        <input
+          type="text"
+          maxlength="4"
+          class="py-3 pl-6 text-[#283347] focus:outline-none w-20 placeholder-[#71799D] rounded-l-4xl"
+          placeholder="0"
+          [(ngModel)]="inputValue"
+          [ngModelOptions]="{ standalone: true }"
+          (input)="validateNumber($event)"
+        />
+      </div>
+      <app-select
+        formCategory="Measurements"
+        [stepId]="stepId"
+        [value]="unit"
+        (valueChange)="onSelectValueChange($event)"
+      ></app-select>
+    </div>
+
+    <!-- STEP NUMBER (for instructions) -->
+    <div *ngIf="stepCategory === 'addStep'">
+      <span class="font-semibold text-[#283347] px-6">{{
+        stepNumber | number : "2.0"
+      }}</span>
+    </div>
+
+    <!-- INPUT FIELD (shared for both ingredient and step text) -->
+    <app-input
+      name=""
+      type="{{ stepCategory }}"
+      class="mx-3 w-full"
+      [value]="appInputValue"
+      (valueChange)="
+        stepCategory === 'addIngredient'
+          ? onAppInputValueChange($event)
+          : onStepInput($event)
+      "
+    ></app-input>
+
+    <!-- DELETE ICON -->
+    <i
+      class="ph ph-trash text-xl"
+      [ngClass]="{
+        'text-[#71799D] cursor-pointer': canDelete,
+        'text-gray-300 cursor-not-allowed': !canDelete
+      }"
+      (click)="canDelete ? requestRemoveStep() : null"
+    ></i>
+  </div>
+</div>

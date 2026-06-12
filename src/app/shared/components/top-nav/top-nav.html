@@ -1,0 +1,49 @@
+<div
+  class="sticky top-0 z-50 flex flex-row justify-between items-center px-10 py-8 bg-[#FCFDFF] border-b border-[#EAF0F7]"
+>
+  <!-- User welcome -->
+  <p
+    *ngIf="currentPage === 'home' || currentPage === 'recipes'"
+    class="text-[#283347] text-2xl"
+  >
+    Welcome, {{ user?.username || "Chef" }}!
+  </p>
+  <p *ngIf="currentPage === 'my_recipes'" class="text-[#283347] text-2xl">
+    My Recipes
+  </p>
+  <p *ngIf="currentPage === 'cookbook'" class="text-[#283347] text-2xl">
+    Cookbook
+  </p>
+  <p *ngIf="currentPage === 'my_profile'" class="text-[#283347] text-2xl">
+    My Profile
+  </p>
+  <p *ngIf="currentPage === 'profile'" class="text-[#283347] text-2xl">
+    Profile
+  </p>
+  <p *ngIf="currentPage === 'settings'" class="text-[#283347] text-2xl">
+    Settings
+  </p>
+  <!-- User profile and searchbar-->
+  <div class="flex flex-row gap-4">
+    <app-input
+      *ngIf="showSearch"
+      type="search"
+      placeholder="Search..."
+      value=""
+      (keyup.enter)="onSearch($event)"
+    ></app-input>
+    <!-- <button class="cursor-pointer">
+      <i class="ph ph-bell text-lg text-[#283347]"></i>
+    </button> -->
+    <a href="profile">
+      <img
+        [src]="
+          user?.profilePhotoURL ||
+          'https://www.whiskas.cl/sites/g/files/fnmzdf4541/files/2023-11/elever-un-Chaton-ses-premiers-mois.jpg'
+        "
+        alt="User profile"
+        class="w-[50px] h-[50px] rounded-full object-cover"
+      />
+    </a>
+  </div>
+</div>

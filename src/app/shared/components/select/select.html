@@ -1,0 +1,192 @@
+<div class="relative" (click)="onParentClick($event)">
+  <!-- select html -->
+  <div *ngIf="formCategory != 'Privacity'">
+    <div
+      onkeydown=""
+      class="relative cursor-pointer border border-[#D0DBEA] focus-within:border-[#71799D] px-4 {{
+        width
+      }}"
+      (click)="onDropdown($event)"
+      [ngClass]="{
+        'rounded-r-full bg-[#F6F8FC] pb-3 pt-3 align-middle': formCategory === 'Measurements',
+        'rounded-4xl pb-1 pt-[1.25rem] w-4': formCategory !== 'Measurements',
+      }"
+    >
+      <input
+        type="text"
+        id="input_{{ uniqueId }}"
+        class="peer w-full text-black outline-none bg-transparent cursor-pointer select-none"
+        readonly
+        [value]="value"
+        placeholder=""
+      />
+      <label
+        *ngIf="formCategory !== 'Measurements'"
+        for=""
+        class="absolute select-none -z-40 left-4 text-[#71799D] text-base transition-all peer-placeholder-shown:top-3 peer-placeholder-shown:text-base peer-placeholder-shown:text-[#71799D] peer-focus:top-[.469rem] peer-focus:text-[.7rem] peer-focus:text-[#71799D] peer-not-placeholder-shown:top-[.469rem] peer-not-placeholder-shown:text-[.7rem] peer-not-placeholder-shown:text-[#71799D]"
+      >
+        {{ formCategory }}
+      </label>
+
+      <div
+        *ngIf="formCategory !== 'Measurements'"
+        class="flex flex-wrap items-center gap-2 max-w-[95%] pb-1"
+      >
+        <span *ngFor="let tag of selectedTags" class="flex gap-1">
+          <span
+            *ngIf="formCategory === 'Tags'"
+            class="p-2 bg-[#F6F8FC] rounded-full items-center flex gap-1 whitespace-nowrap z-50"
+          >
+            <i class="{{ tag.icon }}"></i> {{ tag.text }}
+            <i
+              class="ph ph-x"
+              (click)="onRemoveTag(tag, $event)"
+              onkeydown=""
+            ></i>
+          </span>
+        </span>
+      </div>
+      <div class="absolute right-4 top-4 z-10">
+        <i class="ph ph-caret-down"></i>
+      </div>
+    </div>
+    <div
+      id="dropdown_{{ uniqueId }}"
+      class="absolute my-2 {{
+        width
+      }} rounded-2xl border border-[#D0DBEA] bg-white shadow-lg z-50 hidden"
+      [ngClass]="{
+      'min-w-60 overflow-y-auto': formCategory === 'Measurements',
+    }"
+    >
+      <div *ngIf="formCategory === 'Category'">
+        <div
+          class="bg-white hover:bg-[#F0F3F6] py-2 px-4 rounded-t-2xl"
+          (click)="onSelectValue($event)"
+          onkeypress=""
+        >
+          Food
+        </div>
+        <div
+          class="bg-white hover:bg-[#F0F3F6] py-2 px-4 rounded-b-2xl"
+          (click)="onSelectValue($event)"
+          onkeypress=""
+        >
+          Drink
+        </div>
+      </div>
+      <div *ngIf="formCategory === 'Meal Type'">
+        <div
+          class="bg-white hover:bg-[#F0F3F6] py-2 px-4 rounded-t-2xl"
+          (click)="onSelectValue($event)"
+          onkeypress=""
+        >
+          Breakfast
+        </div>
+        <div
+          class="bg-white hover:bg-[#F0F3F6] py-2 px-4"
+          (click)="onSelectValue($event)"
+          onkeypress=""
+        >
+          Lunch
+        </div>
+        <div
+          class="bg-white hover:bg-[#F0F3F6] py-2 px-4"
+          (click)="onSelectValue($event)"
+          onkeypress=""
+        >
+          Dinner
+        </div>
+        <div
+          class="bg-white hover:bg-[#F0F3F6] py-2 px-4"
+          (click)="onSelectValue($event)"
+          onkeypress=""
+        >
+          Snack
+        </div>
+        <div
+          class="bg-white hover:bg-[#F0F3F6] py-2 px-4 rounded-b-2xl"
+          (click)="onSelectValue($event)"
+          onkeypress=""
+        >
+          Dessert
+        </div>
+      </div>
+      <div *ngIf="formCategory === 'Difficulty'">
+        <div
+          class="bg-white hover:bg-[#F0F3F6] py-2 px-4 rounded-t-2xl"
+          (click)="onSelectValue($event)"
+          onkeypress=""
+        >
+          Easy
+        </div>
+        <div
+          class="bg-white hover:bg-[#F0F3F6] py-2 px-4"
+          (click)="onSelectValue($event)"
+          onkeypress=""
+        >
+          Medium
+        </div>
+        <div
+          class="bg-white hover:bg-[#F0F3F6] py-2 px-4 rounded-b-2xl"
+          (click)="onSelectValue($event)"
+          onkeypress=""
+        >
+          Hard
+        </div>
+      </div>
+      <div *ngIf="formCategory === 'Tags'">
+        <div class="max-h-40 overflow-y-auto rounded-2xl">
+          <div
+            onkeydown=""
+            *ngFor="let tag of TagIcon"
+            id="div-{{ tag.value }}"
+            class="flex items-center py-2 px-4 select-none"
+            [ngClass]="{
+              'bg-white': !isTagSelected(tag),
+              'bg-[#e5eaef]': isTagSelected(tag),
+              'hover:bg-[#F0F3F6]': true
+            }"
+            (click)="toggleCheckbox(tag, $event)"
+          >
+            <input
+              type="checkbox"
+              id="checkbox-{{ tag.value }}"
+              [checked]="isTagSelected(tag)"
+              (change)="handleTagChange($event, tag)"
+              class="mr-2"
+              #checkbox
+            />
+            {{ tag.text }}
+          </div>
+        </div>
+      </div>
+      <div *ngIf="formCategory === 'Measurements'">
+        <div class="max-h-40 overflow-y-auto rounded-2xl">
+          <div
+            onkeydown=""
+            *ngFor="let measurement of Measurements"
+            id="div-{{ measurement.text }}"
+            class="flex items-center py-2 px-4 select-none cursor-pointer hover:bg-[#F0F3F6]"
+            (click)="onSelectValue($event); onDropdown($event)"
+          >
+            {{ measurement.text }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="formCategory === 'Privacity'" class="flex items-center gap-2">
+    <label class="relative inline-flex items-center cursor-pointer">
+      <input
+        type="checkbox"
+        (change)="onToggleChange($event)"
+        class="sr-only peer"
+      />
+      <div
+        class="w-9 h-5 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-[#144257]"
+      ></div>
+    </label>
+    <p class="inline-block align-bottom">Hide from Others</p>
+  </div>
+</div>

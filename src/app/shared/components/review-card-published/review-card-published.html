@@ -1,0 +1,48 @@
+<div
+  class="px-6 py-4 max-w-[800px] rounded-3xl bg-[#FCFDFF] border border-[#D0DBEA] shadow-md mb-4"
+>
+  <div class="flex flex-row gap-4">
+    <img
+      class="w-10 h-10 rounded-full object-fill"
+      [src]="
+        review.user.profilePhotoURL || '/assets/images/handsome_shadow.png'
+      "
+      (error)="onImgError($event)"
+      alt="Profile picture"
+    />
+    <div class="w-full flex flex-col gap-2">
+      <div class="flex flex-col gap-4">
+        <!-- User's information -->
+        <div class="flex flex-col gap-1">
+          <!-- User's name and review's rating -->
+          <div class="flex flex-row justify-between">
+            <p class="text-[#283347] text-lg font-semibold">
+              {{ review.user.name }}
+            </p>
+            <div class="flex flex-row gap-2 text-sm items-center">
+              <i class="ph-fill ph-star text-[#F4C430]"></i>
+              <p id="rating" class="text-[#71799D] w-full">
+                {{ review.rating ? (review.rating | number : "1.1-1") : "-" }}
+              </p>
+            </div>
+          </div>
+
+          <p class="text-[#71799D]">&#64;{{ review.user.username }}</p>
+        </div>
+
+        <!-- Review's Comment -->
+        <p>{{ review.comment }}</p>
+
+        <!-- Report Button -->
+        <div>
+          <button
+            class="flex flex-row gap-2 items-center bg-[#FCFDFF] text-[#71799D] font-medium rounded-full py-2 px-4 hover:bg-[#F6F8FC]"
+          >
+            <i class="ph ph-flag text-[#71799D]"></i>
+            Report
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

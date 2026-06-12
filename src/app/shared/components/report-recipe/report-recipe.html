@@ -1,0 +1,33 @@
+<div class="fixed inset-0 z-1 flex items-center justify-center">
+    <div class="bg-white rounded-2xl p-6 w-96 shadow-lg text-center relative">
+        <button (click)="close()" class="absolute top-[-8px] right-5 text-gray-500 text-3xl p-3">&times;</button>
+
+        <div class="mb-4">
+            <img src="assets/images/Chefcitos/Icon/Outline/flag.svg" alt="Report Icon" class="mx-auto w-12 h-12" />
+        </div>
+
+        <h2 class="text-lg font-semibold">Report Recipe</h2>
+
+        <select [(ngModel)]="reason" autocomplete="off" class="w-full mt-4 p-2 border rounded-full">
+        <option value="" disabled selected hidden>Reason</option>
+        <option value="Copying or Plagiarism">Copying or Plagiarism</option>
+        <option value="Dishonest Claim">Dishonest Claim</option>
+        <option value="Health or Safety Concerns">Health or Safety Concerns</option>
+        <option value="Inaccurate Ingredients or Instructions">Inaccurate Ingredients or Instructions</option>
+        <option value="Offensive or Inappropriate Content">Offensive or Inappropriate Content</option>
+      </select>
+
+        <textarea [(ngModel)]="comment" placeholder="Comment" class="w-full mt-4 p-2 border rounded-lg"></textarea>
+
+        <div class="mt-6 flex justify-between">
+            <button (click)="close()" class="px-4 py-2 border rounded-full mx-auto ml-32">Cancel</button>
+            <button (click)="submit()" class="px-4 py-2 bg-red-500 text-white rounded-full">Send Report</button>
+        </div>
+        <!-- Snackbar -->
+        <div *ngIf="showSnackbar" class="fixed left-1/2 transform -translate-x-1/2 bottom-5 bg-green-100 border border-green-300 text-green-700 px-6 py-2 rounded-lg shadow-md flex items-center space-x-2 transition-all duration-300 ease-in-out">
+            <img src="assets/images/Chefcitos/Icon/Solid/Check.svg" alt="Check Icon" class="w-5 h-5">
+            <span>Report successfully sent. Thank you for helping us make Chefcitos a better place!</span>
+            <button (click)="hideSnackbar()" class="text-green-700 font-bold text-lg">&times;</button>
+        </div>
+    </div>
+</div>

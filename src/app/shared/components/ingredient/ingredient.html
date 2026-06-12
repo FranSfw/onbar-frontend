@@ -1,0 +1,40 @@
+<div
+  cdkDropList
+  [cdkDropListData]="ingredients"
+  (cdkDropListDropped)="drop($event)"
+>
+  <div
+    *ngFor="let ing of ingredients"
+    cdkDrag
+    class="flex flex-row gap-2 items-start text-base mb-6"
+  >
+    <span cdkDragHandle class="cursor-move mr-2 flex items-center">
+      <i class="ph ph-dots-six-vertical text-xl"></i>
+    </span>
+    <label
+      for="checkbox-{{ ing.ingredient }}"
+      class="flex flex-row gap-3 items-start cursor-pointer w-full"
+    >
+      <!-- Hidden checkbox with peer -->
+      <input
+        type="checkbox"
+        class="hidden peer"
+        id="checkbox-{{ ing.ingredient }}"
+      />
+
+      <!-- Styled checkbox -->
+      <div
+        class="w-6 h-6 border border-[#0E3A46] rounded-sm peer-checked:bg-[#0E3A46] flex items-center justify-center transition"
+      >
+        <i
+          class="ph-bold ph-check text-[#FCFDFF] w-4 h-4 peer-checked:opacity-100 transition"
+        ></i>
+      </div>
+
+      <!-- Text with line-through on check -->
+      <span class="text-[#283347] transition peer-checked:line-through">
+        {{ ing.quantity }} {{ ing.unit }} {{ ing.ingredient }}
+      </span>
+    </label>
+  </div>
+</div>
