@@ -1,0 +1,50 @@
+<div class="relative flex min-h-screen w-full lg:grid lg:grid-cols-2 lg:h-screen lg:overflow-hidden bg-[#F6F8FC] lg:bg-white">
+  
+  <!-- Mobile/Tablet Background Image -->
+  <div class="absolute inset-0 z-0 lg:hidden">
+    <img src="assets/images/sign-up.jpg" class="w-full h-full object-cover opacity-80" alt="Background" />
+  </div>
+
+  <!-- Form Section -->
+  <div class="relative z-10 flex flex-col items-center justify-center w-full px-4 sm:px-8 py-8 lg:px-24 xl:px-32 lg:h-full lg:bg-white overflow-y-auto">
+    <div class="w-full max-w-sm lg:max-w-md bg-white p-8 lg:p-0 rounded-4xl lg:rounded-none shadow-2xl lg:shadow-none">
+      <i class="ph ph-coffee text-6xl lg:text-7xl text-[#283347]"></i>
+      
+      <h1 class="text-4xl lg:text-5xl text-left text-[#283347] py-4 font-bold">Welcome Back</h1>
+      <p class="text-left text-[#71799D] pb-6 lg:pb-8">
+        Ready to brew some new recipes?
+      </p>
+
+      <div class="space-y-4">
+        <app-input name="Email" type="email" id="emailLogin" [(value)]="email"></app-input><br>
+        <app-input name="Password" type="password" id="passwordLogin" [(value)]="password"></app-input>
+      </div>
+
+      <div class="flex justify-end py-3">
+        <a routerLink="/forgot-password" class="text-sm text-[#71799D] hover:text-[#144257] transition-colors">Forgot Password?</a>
+      </div>
+
+      <app-button text="Sign In" type="submit" (buttonClick)="onLogin()"></app-button>
+
+      <div class="flex items-center justify-center py-6 gap-2">
+        <span class="text-[#71799D]">Or continue with</span>
+      </div>
+
+      <app-button text="Google" type="cancel" (buttonClick)="onGoogleLogin()"></app-button>
+      
+      <p class="text-[#283347] mt-8 text-center">
+        Don't have an account? 
+        <a class="text-[#71799D] font-semibold hover:text-[#144257] transition-colors" routerLink="/signup">Sign Up</a>
+      </p>
+    </div>
+  </div>
+
+  <!-- Laptop Image Section -->
+  <div class="hidden lg:block relative w-full h-full">
+    <img 
+      class="absolute inset-0 w-full h-full object-cover" 
+      src="assets/images/login.jpg" 
+      alt="Coffee brewing" 
+    />
+  </div>
+</div>

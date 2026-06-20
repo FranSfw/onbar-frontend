@@ -12,6 +12,7 @@ export class SelectComponent {
   @Input() width: string = 'w-full';
   @Input() uniqueId: string = Math.random().toString(36).substr(2, 9);
   @Input() value: string = '';
+  @Input() stepId: string = '';
 
   @Output() valueChange = new EventEmitter<string>();
   @Output() tagsChange = new EventEmitter<any[]>();

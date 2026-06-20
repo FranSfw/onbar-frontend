@@ -12,8 +12,8 @@ export class ReviewCardComponent {
   @Input() recipeId: string = '';
   @Output() reviewSubmitted = new EventEmitter<any>();
 
-  currentUser = { name: 'Barista Pro', username: 'baristapro', profilePhotoURL: '' };
-  
+  // Le agregamos el tipo "any | null" para que Angular permita usar el "?." en el HTML
+  currentUser: any | null = { name: 'Barista Pro', username: 'baristapro', profilePhotoURL: '' };
   comment: string = '';
   selectedRating: number = 0;
   hoverRating: number = 0;

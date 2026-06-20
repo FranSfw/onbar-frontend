@@ -4,6 +4,8 @@ import { ProfileEditComponent } from './features/profile/profile-edit/profile-ed
 import { SettingsComponent } from './features/settings/settings/settings';
 import { SignUpComponent } from './features/auth/sign-up/sign-up';
 import { ReviewCardComponent } from './shared/components/review-card/review-card';
+import { LoginComponent } from './features/auth/login/login';
+import { ForgotPasswordComponent } from './features/auth/forgot-password/forgot-password';
 
 export const routes: Routes = [
     //routes fir test components and features
@@ -11,8 +13,9 @@ export const routes: Routes = [
     { path: 'profile-edit', component: ProfileEditComponent },
     { path: 'review-card', component: ReviewCardComponent },
     { path: 'settings', component: SettingsComponent },
-    { path: 'sign-up', component: SignUpComponent },
-
+    { path: 'signup', component: SignUpComponent },
+    { path: 'login', component: LoginComponent },
+    { path: 'forgot-password', component: ForgotPasswordComponent },
     
 
 ];

@@ -1,76 +1,55 @@
-<div class="grid grid-cols-2">
-  <div class="flex flex-col items-center justify-center">
-    <div class="w-1/2">
-      <i class="ph ph-chef-hat text-7xl text-[#283347]"></i>
-      <h1 class="text-6xl text-left text-[#283347] py-4">Sign Up</h1>
-      <p class="text-left text-[#71799D]">
-        The adventure begins with one recipe!
-      </p>
-    </div>
-
-    <div class="w-1/2 py-10">
-      <div class="flex gap-4">
-        <app-input
-          name="First Name"
-          type="text"
-          id="firstNameSignUp"
-          value=""
-          [(ngModel)]="firstName"
-        ></app-input>
-
-        <app-input
-          name="Last Name"
-          type="text"
-          id="lastNameSignUp"
-          value=""
-          [(ngModel)]="lastName"
-        ></app-input>
-      </div>
-      <br />
-
-      <app-input
-        name="Username"
-        type="text"
-        id="usernameSignUp"
-        value=""
-        [(ngModel)]="username"
-      ></app-input>
-      <br />
-
-      <app-input
-        name="Email"
-        type="email"
-        id="emailSignUp"
-        value=""
-        [(ngModel)]="email"
-      ></app-input>
-      <br />
-
-      <app-input
-        name="Password"
-        type="password"
-        id="passwordSignUp"
-        value=""
-        [(ngModel)]="password"
-      ></app-input>
-      <br />
-
-      <app-button text="Create Account" (buttonClick)="onSignUp()"></app-button>
-
-      <span class="flex justify-center text-[#71799D] py-6">
-        Or continue with
-      </span>
-
-      <app-button text="Google" (buttonClick)="onGoogleLogin()"></app-button>
-    </div>
-
-    <p class="text-[#283347] flex justify-center">
-      Already have an account?
-      <a class="text-[#71799D]" routerLink="/login">Sign In</a>
-    </p>
+<div class="relative flex min-h-screen w-full lg:grid lg:grid-cols-2 lg:h-screen lg:overflow-hidden bg-[#F6F8FC] lg:bg-white">
+  
+  <!-- Mobile/Tablet Background Image -->
+  <div class="absolute inset-0 z-0 lg:hidden">
+    <img src="assets/images/sign-up.jpg" class="w-full h-full object-cover opacity-80" alt="Background" />
   </div>
 
-  <div class="flex items-center justify-center h-screen">
-    <img class="w-9/12 rounded-4xl" src="assets/images/sign_up.png" alt="" />
+  <!-- Form Section -->
+  <div class="relative z-10 flex flex-col items-center justify-center w-full px-4 sm:px-8 py-8 lg:px-24 xl:px-32 lg:h-full lg:bg-white overflow-y-auto">
+    <div class="w-full max-w-sm lg:max-w-md bg-white p-8 lg:p-0 rounded-4xl lg:rounded-none shadow-2xl lg:shadow-none">
+      <i class="ph ph-chef-hat text-6xl lg:text-7xl text-[#283347]"></i>
+      <h1 class="text-4xl lg:text-6xl text-left text-[#283347] py-4 font-bold">Sign Up</h1>
+      <p class="text-left text-[#71799D] pb-6">
+        The adventure begins with one recipe!
+      </p>
+
+      <div class="space-y-4 py-4">
+        <div class="grid grid-cols-2 gap-4">
+          <app-input name="First Name" type="text" id="firstNameSignUp" [(value)]="firstName"></app-input>
+          <app-input name="Last Name" type="text" id="lastNameSignUp" [(value)]="lastName"></app-input>
+        </div>
+
+        <div class="flex flex-col gap-4">
+          <app-input name="Username" type="text" id="usernameSignUp" [(value)]="username"></app-input>
+
+          <app-input name="Email" type="email" id="emailSignUp" [(value)]="email"></app-input>
+
+          <app-input name="Password" type="password" id="passwordSignUp" [(value)]="password"></app-input>
+        </div>
+
+        <app-button text="Create Account" type="submit" (buttonClick)="onSignUp()"></app-button>
+
+        <div class="flex items-center justify-center py-6 gap-2">
+          <span class="text-[#71799D]">Or continue with</span>
+        </div>
+
+        <app-button text="Google" type="cancel" (buttonClick)="onGoogleLogin()"></app-button>
+      </div>
+
+      <p class="text-[#283347] flex justify-center mt-6 text-center">
+        Already have an account?&nbsp;
+        <a class="text-[#71799D] font-semibold hover:text-[#144257] transition-colors" routerLink="/login">Sign In</a>
+      </p>
+    </div>
+  </div>
+
+  <!-- Laptop Image Section -->
+  <div class="hidden lg:block relative w-full h-full">
+    <img 
+      class="absolute inset-0 w-full h-full object-cover" 
+      src="assets/images/sign-up.jpg" 
+      alt="Sign Up Visual" 
+    />
   </div>
 </div>

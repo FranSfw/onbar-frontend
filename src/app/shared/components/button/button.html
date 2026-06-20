@@ -1,12 +1,12 @@
 <button
   *ngIf="text !== 'Google'"
-  class="flex items-center justify-center w-full rounded-full py-3 transition duration-300 cursor-pointer {{
+  class="flex items-center justify-center w-full rounded-full py-2 text-sm transition duration-300 cursor-pointer {{
     width
   }}"
   type="submit"
   (click)="onClick($event)"
   [ngClass]="{
-      'bg-[#144257] hover:bg-[#1E5E6E] text-white' : type === 'submit',
+      'bg-[#422c22] hover:bg-[#4d3328] text-[#f9f5f3]' : type === 'submit',
       'border border-[#D0DBEA] hover:border-[#71799D] text-[#283347]' : type === 'cancel',
     }"
 >
@@ -14,13 +14,13 @@
 </button>
 <button
   *ngIf="text === 'Google'"
-  class="flex items-center justify-center w-full bg-white rounded-full py-3 text-black cursor-pointer border border-[#D0DBEA]  {{
+  class="flex items-center justify-center w-full bg-white rounded-full py-2 text-sm text-black cursor-pointer border border-[#D0DBEA]  {{
     width
   }}"
   type="submit"
   (click)="onClick($event)"
 >
-  <img src="assets/images/Chefcitos/Google.svg" alt="" />
+  <img class="w-5 h-5 object-contain" src="assets/Google.svg" alt="" />
 
   <span class="font-semibold px-2"> {{ text }} </span>
 </button>

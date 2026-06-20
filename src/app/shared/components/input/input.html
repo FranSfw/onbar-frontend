@@ -1,65 +1,52 @@
-<div>
-  <div
-    class="relative {{ width }}"
-    [ngClass]="{
-      'rounded-full': type === 'search',
-      }
-    "
-  >
-    <!-- Ícono de búsqueda (solo para type === 'search') -->
-    <i
-      *ngIf="type === 'search'"
-      class="ph ph-magnifying-glass absolute left-4 top-[18px] select-none"
-      style="color: #71799d"
-    ></i>
+<div class="relative {{ width }}">
 
-    <!-- Input -->
+  <ng-container *ngIf="type === 'search'">
+    <i class="ph ph-magnifying-glass absolute left-4 top-[15px] select-none text-[#71799D]"></i>
     <input
       [id]="id"
-      [type]="type === 'password' ? getInputType() : type"
-      [name]="name"
-      [placeholder]="
-        type === 'search'
-          ? 'Search...'
-          : type === 'addStep'
-          ? 'Step'
-          : type === 'addIngredient'
-          ? 'Ingredient'
-          : id === 'servingInt'
-          ? '0'
-          : ' '
-      "
-      class="peer w-full rounded-4xl border border-[#D0DBEA] px-4 text-base focus:border-[#71799D] outline-none align-top"
-      [ngClass]="{
-        'pl-10 pt-3 pb-3': type === 'search',
-        'pt-[1.25rem] pb-1.5': type !== 'search' && !type.startsWith('add') && type !== 'noLabel',
-        'py-3': type === 'addIngredient' || type === 'addStep' || type === 'noLabel',
-
-      }"
+      type="text"
+      placeholder="Search..."
+      class="w-full rounded-full border border-[#D0DBEA] pl-10 pr-4 py-2 text-sm focus:border-[#71799D] outline-none bg-transparent"
       (input)="onInputChange($event)"
       [value]="value"
     />
+  </ng-container>
 
-    <!-- Label (solo para type !== 'search') -->
+  <ng-container *ngIf="type === 'addStep' || type === 'addIngredient' || type === 'noLabel'">
+    <input
+      [id]="id"
+      [type]="type.startsWith('add') ? 'text' : type"
+      [placeholder]="type === 'addStep' ? 'Step' : (type === 'addIngredient' ? 'Ingredient' : ' ')"
+      class="w-full rounded-4xl border border-[#D0DBEA] px-4 py-2 text-sm focus:border-[#71799D] outline-none bg-transparent"
+      (input)="onInputChange($event)"
+      [value]="value"
+    />
+  </ng-container>
+
+  <ng-container *ngIf="type !== 'search' && type !== 'addStep' && type !== 'addIngredient' && type !== 'noLabel'">
+    <input
+      [id]="id"
+      [type]="type === 'password' ? getInputType() : type"
+      placeholder=" "
+      class="peer w-full rounded-4xl border border-[#D0DBEA] px-4 pt-[.85rem] pb-1 text-sm focus:border-[#71799D] outline-none align-top bg-transparent"
+      (input)="onInputChange($event)"
+      [value]="value"
+    />
     <label
-      *ngIf="type !== 'search'"
-      for="{{ id }}"
-      class="absolute select-none -z-10 left-4 text-gray-400 text-base transition-all peer-placeholder-shown:top-3 peer-placeholder-shown:text-base peer-placeholder-shown:text-[#71799D] peer-focus:top-[.469rem] peer-focus:text-[.7rem] peer-focus:text-[#71799D] peer-not-placeholder-shown:top-[.469rem] peer-not-placeholder-shown:text-[.7rem] peer-not-placeholder-shown:text-[#71799D]"
+      [attr.for]="id"
+      class="absolute left-4 text-[#71799D] text-sm transition-all pointer-events-none top-[.55rem] peer-focus:top-[.15rem] peer-focus:text-[.6rem] peer-not-placeholder-shown:top-[.15rem] peer-not-placeholder-shown:text-[.6rem]"
     >
       {{ name }}
     </label>
 
-    <!-- Botón de mostrar/ocultar contraseña (solo para type === 'password') -->
     <button
       *ngIf="type === 'password'"
+      type="button"
       (click)="togglePasswordVisibility()"
-      class="cursor-pointer"
+      class="absolute right-4 top-[10px] cursor-pointer text-[#71799D]"
     >
-      <i
-        [ngClass]="getIconClass()"
-        class="ph absolute right-4 top-4 select-none"
-        style="color: #71799d"
-      ></i>
+      <i [ngClass]="getIconClass()" class="ph select-none text-xl"></i>
     </button>
-  </div>
+  </ng-container>
+
 </div>
