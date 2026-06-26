@@ -1,42 +1,45 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, forwardRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR, FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-input',
   standalone: true,
-  imports: [CommonModule],
-  templateUrl: './input.html'
+  imports: [CommonModule, FormsModule],
+  templateUrl: './input.html',
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => InputComponent),
+      multi: true
+    }
+  ]
 })
-export class InputComponent {
+export class InputComponent implements ControlValueAccessor {
   @Input() width: string = 'w-full';
   @Input() type: string = 'text';
   @Input() id: string = '';
   @Input() name: string = '';
-  @Input() value: string | number = '';
-  @Input() maxLength?: number;
 
-  @Output() valueChange = new EventEmitter<string | number>();
-
+  value: string | number = '';
   showPassword = false;
 
-  // Emite el valor cada vez que el usuario escribe
-  onInputChange(event: Event) {
+  // Funciones que Angular llama para manejar el valor
+  onChange: any = () => {};
+  onTouch: any = () => {};
+
+  writeValue(val: any): void { this.value = val; }
+  registerOnChange(fn: any): void { this.onChange = fn; }
+  registerOnTouched(fn: any): void { this.onTouch = fn; }
+
+  onInput(event: Event) {
     const val = (event.target as HTMLInputElement).value;
-    this.valueChange.emit(val);
+    this.value = val;
+    this.onChange(val);
+    this.onTouch();
   }
 
-  togglePasswordVisibility() {
-    this.showPassword = !this.showPassword;
-  }
-
-  getInputType() {
-    if (this.type === 'password') {
-      return this.showPassword ? 'text' : 'password';
-    }
-    return this.type;
-  }
-
-  getIconClass() {
-    return this.showPassword ? 'ph-eye-slash' : 'ph-eye';
-  }
+  togglePasswordVisibility() { this.showPassword = !this.showPassword; }
+  getInputType() { return this.type === 'password' && this.showPassword ? 'text' : this.type; }
+  getIconClass() { return this.showPassword ? 'ph-eye-slash' : 'ph-eye'; }
 }

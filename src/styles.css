@@ -4,10 +4,26 @@
 
 /* Elimina el fondo de autocompletado de los navegadores (Chrome/Edge/Safari) */
 input:-webkit-autofill,
-input:-webkit-autofill:hover, 
-input:-webkit-autofill:focus, 
-input:-webkit-autofill:active{
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
     -webkit-box-shadow: 0 0 0 30px white inset !important;
     -webkit-text-fill-color: #283347 !important;
     transition: background-color 5000s ease-in-out 0s;
+}
+
+@keyframes slide-up {
+    from {
+        transform: translate(-50%, 100%);
+        opacity: 0;
+    }
+
+    to {
+        transform: translate(-50%, 0);
+        opacity: 1;
+    }
+}
+
+.animate-fade-in {
+    animation: slide-up 0.4s ease-out forwards;
 }

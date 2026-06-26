@@ -3,21 +3,18 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { InputComponent } from '../../../shared/components/input/input';
 import { ButtonComponent } from '../../../shared/components/button/button';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-forgot-password',
   standalone: true,
-  imports: [CommonModule, RouterModule, InputComponent, ButtonComponent],
+  imports: [CommonModule, RouterModule, InputComponent, ButtonComponent, FormsModule],
   templateUrl: './forgot-password.html'
 })
 export class ForgotPasswordComponent {
-  email = '';
-  errorMessage = '';
-  successMessage = '';
-
-  onEmailChange(value: string | number) {
-    this.email = value.toString();
-  }
+  email: string = '';
+  errorMessage: string = '';
+  successMessage: string = '';
 
   onForgotPassword() {
     if (!this.email) {

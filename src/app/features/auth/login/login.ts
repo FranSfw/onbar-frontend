@@ -4,6 +4,8 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { InputComponent } from '../../../shared/components/input/input';
 import { ButtonComponent } from '../../../shared/components/button/button';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { SnackbarService } from '../../../shared/components/snackbar/snackbar.service';
 
 @Component({
   selector: 'app-login',
@@ -15,11 +17,21 @@ export class LoginComponent {
   email = '';
   password = '';
 
-  onLogin() {
-    console.log('Iniciando sesión con:', this.email);
+onLogin() {
+    // Prueba rápida
+    this.snackbarService.show('¡Probando Snackbar!', 'success');
   }
 
   onGoogleLogin() {
     console.log('Flujo de Google Auth iniciado');
   }
+  loginForm: FormGroup;
+
+  constructor(private fb: FormBuilder, private snackbarService: SnackbarService) {
+    this.loginForm = this.fb.group({
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required]]
+    });
+  }
+
 }

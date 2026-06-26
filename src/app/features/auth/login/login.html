@@ -1,11 +1,9 @@
 <div class="relative flex min-h-screen w-full lg:grid lg:grid-cols-2 lg:h-screen lg:overflow-hidden bg-[#F6F8FC] lg:bg-white">
   
-  <!-- Mobile/Tablet Background Image -->
   <div class="absolute inset-0 z-0 lg:hidden">
     <img src="assets/images/sign-up.jpg" class="w-full h-full object-cover opacity-80" alt="Background" />
   </div>
 
-  <!-- Form Section -->
   <div class="relative z-10 flex flex-col items-center justify-center w-full px-4 sm:px-8 py-8 lg:px-24 xl:px-32 lg:h-full lg:bg-white overflow-y-auto">
     <div class="w-full max-w-sm lg:max-w-md bg-white p-8 lg:p-0 rounded-4xl lg:rounded-none shadow-2xl lg:shadow-none">
       <i class="ph ph-coffee text-6xl lg:text-7xl text-[#283347]"></i>
@@ -15,9 +13,19 @@
         Ready to brew some new recipes?
       </p>
 
-      <div class="space-y-4">
-        <app-input name="Email" type="email" id="emailLogin" [(value)]="email"></app-input><br>
-        <app-input name="Password" type="password" id="passwordLogin" [(value)]="password"></app-input>
+      <div class="flex flex-col space-y-4">
+        <app-input 
+          name="Email" 
+          type="email" 
+          id="emailLogin" 
+          [(ngModel)]="email"> </app-input>
+        
+        <app-input 
+          name="Password" 
+          type="password" 
+          id="passwordLogin" 
+          [(ngModel)]="password">
+        </app-input>
       </div>
 
       <div class="flex justify-end py-3">
@@ -39,7 +47,6 @@
     </div>
   </div>
 
-  <!-- Laptop Image Section -->
   <div class="hidden lg:block relative w-full h-full">
     <img 
       class="absolute inset-0 w-full h-full object-cover" 

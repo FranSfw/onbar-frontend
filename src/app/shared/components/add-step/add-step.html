@@ -40,8 +40,8 @@
       name=""
       type="{{ stepCategory }}"
       class="mx-3 w-full"
-      [value]="appInputValue"
-      (valueChange)="
+      [ngModel]="appInputValue"
+      (ngModelChange)="
         stepCategory === 'addIngredient'
           ? onAppInputValueChange($event)
           : onStepInput($event)

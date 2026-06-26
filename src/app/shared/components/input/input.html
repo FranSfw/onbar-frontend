@@ -7,8 +7,8 @@
       type="text"
       placeholder="Search..."
       class="w-full rounded-full border border-[#D0DBEA] pl-10 pr-4 py-2 text-sm focus:border-[#71799D] outline-none bg-transparent"
-      (input)="onInputChange($event)"
-      [value]="value"
+      [(ngModel)]="value"
+      (input)="onInput($event)"
     />
   </ng-container>
 
@@ -18,19 +18,19 @@
       [type]="type.startsWith('add') ? 'text' : type"
       [placeholder]="type === 'addStep' ? 'Step' : (type === 'addIngredient' ? 'Ingredient' : ' ')"
       class="w-full rounded-4xl border border-[#D0DBEA] px-4 py-2 text-sm focus:border-[#71799D] outline-none bg-transparent"
-      (input)="onInputChange($event)"
-      [value]="value"
+      [(ngModel)]="value"
+      (input)="onInput($event)"
     />
   </ng-container>
 
   <ng-container *ngIf="type !== 'search' && type !== 'addStep' && type !== 'addIngredient' && type !== 'noLabel'">
     <input
       [id]="id"
-      [type]="type === 'password' ? getInputType() : type"
+      [type]="getInputType()"
       placeholder=" "
       class="peer w-full rounded-4xl border border-[#D0DBEA] px-4 pt-[.85rem] pb-1 text-sm focus:border-[#71799D] outline-none align-top bg-transparent"
-      (input)="onInputChange($event)"
-      [value]="value"
+      [(ngModel)]="value"
+      (input)="onInput($event)"
     />
     <label
       [attr.for]="id"
@@ -48,5 +48,4 @@
       <i [ngClass]="getIconClass()" class="ph select-none text-xl"></i>
     </button>
   </ng-container>
-
 </div>

@@ -16,16 +16,16 @@
 
       <div class="space-y-4 py-4">
         <div class="grid grid-cols-2 gap-4">
-          <app-input name="First Name" type="text" id="firstNameSignUp" [(value)]="firstName"></app-input>
-          <app-input name="Last Name" type="text" id="lastNameSignUp" [(value)]="lastName"></app-input>
+          <app-input name="First Name" type="text" id="firstNameSignUp" [(ngModel)]="firstName"></app-input>
+          <app-input name="Last Name" type="text" id="lastNameSignUp" [(ngModel)]="lastName"></app-input>
         </div>
 
         <div class="flex flex-col gap-4">
-          <app-input name="Username" type="text" id="usernameSignUp" [(value)]="username"></app-input>
+          <app-input name="Username" type="text" id="usernameSignUp" [(ngModel)]="username"></app-input>
 
-          <app-input name="Email" type="email" id="emailSignUp" [(value)]="email"></app-input>
+          <app-input name="Email" type="email" id="emailSignUp" [(ngModel)]="email"></app-input>
 
-          <app-input name="Password" type="password" id="passwordSignUp" [(value)]="password"></app-input>
+          <app-input name="Password" type="password" id="passwordSignUp" [(ngModel)]="password"></app-input>
         </div>
 
         <app-button text="Create Account" type="submit" (buttonClick)="onSignUp()"></app-button>
