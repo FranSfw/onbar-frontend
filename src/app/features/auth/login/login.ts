@@ -19,7 +19,7 @@ export class LoginComponent {
 
 onLogin() {
     // Prueba rápida
-    this.snackbarService.show('¡Probando Snackbar!', 'success');
+    this.snackbarService.show('Iniciando sesion con ' + this.email + '!', 'success');
   }
 
   onGoogleLogin() {

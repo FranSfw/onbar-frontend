@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SnackbarService, SnackbarData } from './snackbar.service';
 
@@ -10,11 +10,27 @@ import { SnackbarService, SnackbarData } from './snackbar.service';
 })
 export class SnackbarComponent implements OnInit {
   data: SnackbarData | null = null;
+  isFadingOut = false;
 
-  constructor(private snackbarService: SnackbarService) {}
+  constructor(private snackbarService: SnackbarService, private cdr: ChangeDetectorRef) {}
 
   ngOnInit() {
-    this.snackbarService.snackbarState$.subscribe(data => this.data = data);
+    this.snackbarService.snackbarState$.subscribe(data => {
+      if (data) {
+        this.isFadingOut = false;
+        this.data = data;
+        this.cdr.detectChanges();
+      } else if (this.data) {
+        this.isFadingOut = true;
+        this.cdr.detectChanges();
+        
+        setTimeout(() => {
+          this.data = null;
+          this.isFadingOut = false;
+          this.cdr.detectChanges();
+        }, 400); // Tiempo de la animación de salida
+      }
+    });
   }
 
   getBgColor() {

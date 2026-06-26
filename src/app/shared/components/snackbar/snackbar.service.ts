@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
+import { Subject, timer, of, merge, concat } from 'rxjs';
+import { switchMap, delay, startWith } from 'rxjs/operators';
 
 export interface SnackbarData {
   message: string;
@@ -8,12 +9,16 @@ export interface SnackbarData {
 
 @Injectable({ providedIn: 'root' })
 export class SnackbarService {
-  private snackbarSubject = new Subject<SnackbarData | null>();
-  snackbarState$ = this.snackbarSubject.asObservable();
+  private requestSubject = new Subject<SnackbarData>();
+  
+  snackbarState$ = this.requestSubject.pipe(
+    switchMap(data => concat(
+      of(data),
+      of(null).pipe(delay(3000))
+    ))
+  );
 
   show(message: string, type: 'success' | 'error' | 'warning' | 'info' = 'info') {
-    this.snackbarSubject.next({ message, type });
-    // Se oculta automáticamente tras 3 segundos
-    setTimeout(() => this.snackbarSubject.next(null), 3000);
+    this.requestSubject.next({ message, type });
   }
 }

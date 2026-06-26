@@ -14,16 +14,32 @@ input:-webkit-autofill:active {
 
 @keyframes slide-up {
     from {
-        transform: translate(-50%, 100%);
+        transform: translateY(100%);
         opacity: 0;
     }
 
     to {
-        transform: translate(-50%, 0);
+        transform: translateY(0);
         opacity: 1;
+    }
+}
+
+@keyframes slide-down {
+    from {
+        transform: translateY(0);
+        opacity: 1;
+    }
+
+    to {
+        transform: translateY(100%);
+        opacity: 0;
     }
 }
 
 .animate-fade-in {
     animation: slide-up 0.4s ease-out forwards;
+}
+
+.animate-fade-out {
+    animation: slide-down 0.4s ease-out forwards;
 }

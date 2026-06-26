@@ -1,5 +1,7 @@
 <div *ngIf="data" 
-  class="fixed bottom-5 left-1/2 -translate-x-1/2 px-6 py-3 rounded-full shadow-lg z-[9999] text-white flex items-center gap-3 transition-all animate-fade-in"
-  [ngClass]="getBgColor()">
+  class="fixed bottom-5 left-0 right-0 mx-auto w-max max-w-[90%] px-6 py-3 rounded-full shadow-lg z-[9999] text-white flex items-center justify-center gap-3 transition-all"
+  [ngClass]="getBgColor()"
+  [class.animate-fade-in]="!isFadingOut"
+  [class.animate-fade-out]="isFadingOut">
   <span>{{ data.message }}</span>
 </div>
