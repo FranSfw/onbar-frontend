@@ -12,7 +12,7 @@ import { VerifyEmailComponent } from './features/auth/verify-email/verify-email'
 
 // Redirecciones
 const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['/login']);
-const redirectLoggedInToHome = () => redirectLoggedInTo(['/home']);
+const redirectLoggedInToSettings = () => redirectLoggedInTo(['/settings']);
 
 export const routes: Routes = [
     // 🔒 Rutas Privadas (Requieren sesión iniciada)
@@ -47,13 +47,13 @@ export const routes: Routes = [
       path: 'sign-up', 
       component: SignUpComponent, 
       canActivate: [AuthGuard], 
-      data: { authGuardPipe: redirectLoggedInToHome } 
+      data: { authGuardPipe: redirectLoggedInToSettings } 
     },
     { 
       path: 'login', 
       component: LoginComponent, 
       canActivate: [AuthGuard], 
-      data: { authGuardPipe: redirectLoggedInToHome } 
+      data: { authGuardPipe: redirectLoggedInToSettings } 
     },
 
     // 🌐 Rutas Públicas Generales
